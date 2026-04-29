@@ -447,6 +447,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_server_member: {
+        Args: { _server_id: string; _user_id: string }
+        Returns: boolean
+      }
       is_server_owner: {
         Args: { _server_id: string; _user_id: string }
         Returns: boolean
