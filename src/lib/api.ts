@@ -30,10 +30,10 @@ export const licenseApi = {
   generate: (license_id: string) => authedFetch("/generate-license", { method: "POST", body: JSON.stringify({ license_id }) }),
 };
 
-export function getDiscordOAuthUrl() {
-  const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID;
+export async function getDiscordOAuthUrl() {
+  const r = await fetch(`${FN_BASE}/discord-auth/config`, { headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY } });
+  const { client_id } = await r.json();
   const redirect = `${window.location.origin}/auth/callback`;
   const scopes = ["identify", "email", "guilds", "guilds.members.read"].join(" ");
-  // If VITE_DISCORD_CLIENT_ID isn't set, we fall back to asking the user to set it via env.
-  return `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&scope=${encodeURIComponent(scopes)}`;
+  return `https://discord.com/api/oauth2/authorize?client_id=${client_id}&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&scope=${encodeURIComponent(scopes)}`;
 }

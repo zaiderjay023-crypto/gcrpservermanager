@@ -57,6 +57,10 @@ Deno.serve(async (req) => {
   const path = url.pathname.replace(/^\/discord-auth/, "") || "/";
 
   try {
+    // Public config (no auth) — exposes only the public client_id
+    if (path === "/config" && req.method === "GET") {
+      return new Response(JSON.stringify({ client_id: CLIENT_ID }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
     // ---------- LOGIN: exchange code -> Discord tokens -> Supabase user ----------
     if (path === "/login" && req.method === "POST") {
       const { code, redirect_uri } = await req.json();
