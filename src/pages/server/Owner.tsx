@@ -67,7 +67,7 @@ export default function Owner() {
   };
 
   const addPerm = async (action: string, role_id: string, mode: "direct" | "request", panel: string) => {
-    const { data, error } = await supabase.from("server_role_permissions").insert({ server_id: server!.id, action, discord_role_id: role_id, mode, panel }).select().single();
+    const { data, error } = await supabase.from("server_role_permissions").insert({ server_id: server!.id, action: action as any, discord_role_id: role_id, mode, panel: panel as any }).select().single();
     if (error) return toast.error(error.message);
     setPerms([...perms, data]);
   };
