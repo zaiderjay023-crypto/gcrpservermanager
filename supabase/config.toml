@@ -1,1 +1,10 @@
 project_id = "tffgdvbwueeiccepkvyg"
+
+[functions.discord-auth]
+verify_jwt = false
+
+[functions.generate-license]
+verify_jwt = false
+
+[functions.bot-webhook]
+verify_jwt = false
