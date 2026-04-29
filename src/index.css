@@ -108,3 +108,27 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Logo intro: appear → spin → fly to top-right corner */
+@keyframes logo-intro {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(0deg); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(0deg); }
+  45%  { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(720deg); }
+  65%  { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(720deg); }
+  100% {
+    opacity: 1;
+    /* Land at the nav logo position (top-right area). Using vw/vh keeps it responsive. */
+    top: 1.5rem;
+    left: auto;
+    right: 1.5rem;
+    transform: translate(0, 0) scale(0.45) rotate(720deg);
+  }
+}
+.logo-intro {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 60;
+  animation: logo-intro 2.2s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+  will-change: transform, top, left, right, opacity;
+}
